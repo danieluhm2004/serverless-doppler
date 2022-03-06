@@ -1,0 +1,32 @@
+{
+  "name": "serverless-doppler",
+  "version": "1.0.0",
+  "repository": "https://github.com/danieluhm2004/serverless-doppler.git",
+  "author": "danieluhm2004 <iam@dan.al>",
+  "description": "It makes it easier to use Doppler without setup in serverless.",
+  "main": "src/index.js",
+  "license": "MIT",
+  "keywords": [
+    "serverless",
+    "doppler",
+    "lambda"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "husky": "^7.0.4",
+    "jest": "^27.4.5"
+  },
+  "peerDependencies": {
+    "serverless": "3.x"
+  },
+  "engines": {
+    "node": ">=12.0"
+  }
+}
