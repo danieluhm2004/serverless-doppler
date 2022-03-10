@@ -12,6 +12,12 @@ npm install -D serverless-doppler
 
 You can add the following options:
 
+| Config  | Description          | Default                  |
+| ------- | -------------------- | ------------------------ |
+| project | Doppler project name |
+| token   | Doppler token        |
+| config  | Doppler config       | Same as serverless stage |
+
 ```yaml
 custom:
   doppler:

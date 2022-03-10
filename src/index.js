@@ -6,11 +6,19 @@ const childProcess = require('child_process');
 
 class ServerlessDoppler {
   constructor(serverless, options) {
-    console.log(serverless);
     this.serverless = serverless;
     this.options = options;
     this.commands = {};
     this.hooks = { initialize: this.onInitialize.bind(this) };
+    this.stage = this.getStage(serverless, options);
+  }
+
+  getStage(serverless, options) {
+    return (
+      _.get(options, 'stage') ||
+      _.get(serverless, 'service.provider.stage') ||
+      'dev'
+    );
   }
 
   async onInitialize() {
@@ -69,7 +77,8 @@ class ServerlessDoppler {
 
   getParamsFromProperty(property) {
     const format = 'json';
-    const { project, config } = property;
+    const { project } = property;
+    const config = property.config || this.stage;
     const include_dynamic_secrets = property.includeDynamicSecrets;
     return { project, config, include_dynamic_secrets, format };
   }

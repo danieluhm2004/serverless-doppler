@@ -14,6 +14,26 @@ describe('Check serverless-doppler plugin', () => {
     });
   });
 
+  test('Get stage from default', () => {
+    expect(plugin.getStage({}, {})).toBe('dev');
+  });
+
+  test('Get stage from options', () => {
+    const stage = `${randomBytes(4).toString('hex')}`;
+    const serverless = { service: { provider: {} } };
+    const options = { stage };
+
+    expect(plugin.getStage(serverless, options)).toBe(stage);
+  });
+
+  test('Get stage from serverless', () => {
+    const stage = `${randomBytes(4).toString('hex')}`;
+    const serverless = { service: { provider: { stage } } };
+    const options = {};
+
+    expect(plugin.getStage(serverless, options)).toBe(stage);
+  });
+
   test('Set environments', () => {
     const environments = {};
     for (let i = 0; i < 10; i++) {
@@ -25,21 +45,6 @@ describe('Check serverless-doppler plugin', () => {
     expect(plugin.serverless.service.provider.environment).toEqual(
       environments
     );
-  });
-
-  test('Move enclave to parent', () => {
-    const project = `${randomBytes(4).toString('hex')}`;
-    const config = `${randomBytes(4).toString('hex')}`;
-    const customProperty = {
-      'enclave.project': project,
-      'enclave.config': config,
-    };
-
-    expect(plugin.moveEnclaveToParent(customProperty)).toEqual({
-      ...customProperty,
-      project,
-      config,
-    });
   });
 
   test('Get headers from property', () => {
@@ -86,6 +91,21 @@ describe('Check serverless-doppler plugin', () => {
     });
 
     expect(plugin.getDopplerPropertyByCli()).toEqual(customConfig);
+  });
+
+  test('Move enclave to parent', () => {
+    const project = `${randomBytes(4).toString('hex')}`;
+    const config = `${randomBytes(4).toString('hex')}`;
+    const customProperty = {
+      'enclave.project': project,
+      'enclave.config': config,
+    };
+
+    expect(plugin.moveEnclaveToParent(customProperty)).toEqual({
+      ...customProperty,
+      project,
+      config,
+    });
   });
 
   test('Get auth from property', () => {
