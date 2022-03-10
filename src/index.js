@@ -10,15 +10,7 @@ class ServerlessDoppler {
     this.options = options;
     this.commands = {};
     this.hooks = { initialize: this.onInitialize.bind(this) };
-    this.stage = this.getStage(serverless, options);
-  }
-
-  getStage(serverless, options) {
-    return (
-      _.get(options, 'stage') ||
-      _.get(serverless, 'service.provider.stage') ||
-      'dev'
-    );
+    this.stage = _.get(options, 'stage');
   }
 
   async onInitialize() {
@@ -77,8 +69,7 @@ class ServerlessDoppler {
 
   getParamsFromProperty(property) {
     const format = 'json';
-    const { project } = property;
-    const config = property.config || this.stage;
+    const { project, config } = property;
     const include_dynamic_secrets = property.includeDynamicSecrets;
     return { project, config, include_dynamic_secrets, format };
   }
@@ -96,6 +87,7 @@ class ServerlessDoppler {
     const propertyByCli = this.getDopplerPropertyByCli();
     const propertyByServerless = this.getDopplerPropertyByServerless();
     _.merge(property, propertyByCli, propertyByServerless);
+    if (this.stage) _.set(property, 'config', this.stage);
     this.serverless.cli.log(
       `Loaded Doppler settings. (project: ${property.project}, config: ${property.config})`
     );
