@@ -10,23 +10,18 @@ First, install the package by entering the following command.
 npm install -D serverless-doppler
 ```
 
-You can add the following options:
+Then, add the line below to serverless.yml.
 
-| Config  | Description          | Default                  |
-| ------- | -------------------- | ------------------------ |
-| project | Doppler project name |
-| token   | Doppler token        |
-| config  | Doppler config       | Same as serverless stage |
-
-```yaml
-custom:
-  doppler:
-    project: <DOPPLER PROJECT>
-    config: <DOPPLER CONFIG>
-    token: <DOPPLER TOKEN>
+```yml
+plugins:
+  - serverless-doppler
 ```
 
-Congratulations. Automatically specifies the environment variable at run time.
+**If you already have a project setting with the Doppler CLI, it is automatically called, so you do not need to set anything.**
+
+**Congratulations.** Automatically specifies the environment variable at run time.
+
+> ⚠️ In an **deployed environment (ex: lambda)**, the environment variable is _not automatically updated._ You must manually deploy it manually when updating.
 
 Successful console log:
 
@@ -37,4 +32,22 @@ The environment variables below are applied.
   - DOPPLER_PROJECT
   - DOPPLER_ENVIRONMENT
   - DOPPLER_CONFIG
+```
+
+## Additional settings
+
+You can add the following options:
+
+| Config  | Description          | Default                               |
+| ------- | -------------------- | ------------------------------------- |
+| project | Doppler project name | Doppler calls automatically via CLI   |
+| token   | Doppler token        | Doppler calls automatically via CLI   |
+| config  | Doppler config       | Same as serverless stage ${sls:stage} |
+
+```yaml
+custom:
+  doppler:
+    project: <DOPPLER PROJECT>
+    config: <DOPPLER CONFIG>
+    token: <DOPPLER TOKEN>
 ```
