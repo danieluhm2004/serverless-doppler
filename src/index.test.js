@@ -107,6 +107,19 @@ describe('Check serverless-doppler plugin', () => {
     });
   });
 
+  test('Get doppler property', () => {
+    const customConfig = {
+      apiHost: `${randomBytes(4).toString('hex')}`,
+      config: `${randomBytes(4).toString('hex')}`,
+      token: `${randomBytes(4).toString('hex')}`,
+      project: `${randomBytes(4).toString('hex')}`,
+      includeDynamicSecrets: true,
+    };
+    plugin.stage = 'mystage';
+    plugin.serverless.service.custom.doppler = customConfig;
+    expect(plugin.getDopplerProperty()).toEqual(customConfig);
+  });
+
   test('Get doppler property by Serverless (Empty)', () => {
     expect(plugin.getDopplerPropertyByServerless()).toEqual({
       apiHost: undefined,

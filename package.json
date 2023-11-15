@@ -1,8 +1,8 @@
 {
   "name": "serverless-doppler",
-  "version": "1.0.2",
-  "repository": "https://github.com/danieluhm2004/serverless-doppler.git",
-  "author": "danieluhm2004 <iam@dan.al>",
+  "version": "1.0.3",
+  "repository": "https://github.com/ProjectFrank/serverless-doppler.git",
+  "author": "ProjectFrank <ProjectFrank@users.noreply.github.com>",
   "description": "It makes it easier to use Doppler without setup in serverless.",
   "main": "src/index.js",
   "license": "MIT",

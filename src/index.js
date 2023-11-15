@@ -83,11 +83,10 @@ class ServerlessDoppler {
       apiHost: 'https://api.doppler.com',
       includeDynamicSecrets: true,
     };
-
     const propertyByCli = this.getDopplerPropertyByCli();
     const propertyByServerless = this.getDopplerPropertyByServerless();
     _.merge(property, propertyByCli, propertyByServerless);
-    if (this.stage) _.set(property, 'config', this.stage);
+    if (this.stage && !propertyByServerless.config) _.set(property, 'config', this.stage);
     this.serverless.cli.log(
       `Loaded Doppler settings. (project: ${property.project}, config: ${property.config})`
     );
